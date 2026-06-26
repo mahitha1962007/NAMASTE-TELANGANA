@@ -15,9 +15,13 @@ async function runMigrations() {
   }
 
   try {
-    const schemaPath = path.join(__dirname, '..', '..', 'database', 'schema.sql');
+    let schemaPath = path.join(__dirname, '..', 'database', 'schema.sql');
     if (!fs.existsSync(schemaPath)) {
-      console.log('⏭️  schema.sql not found. Skipping migrations.');
+      schemaPath = path.join(__dirname, '..', '..', 'database', 'schema.sql');
+    }
+
+    if (!fs.existsSync(schemaPath)) {
+      console.log('⏭️  schema.sql not found. Skipping migrations. Resolved path tried: ' + schemaPath);
       return;
     }
 
