@@ -90,17 +90,17 @@ async function runMigrations() {
       const adminHash = await bcrypt.hash('Admin@123', 10);
       const staffHash = await bcrypt.hash('Staff@123', 10);
 
-      const [repairAdmin] = await pool.query(
-        'UPDATE users SET password_hash = ? WHERE password_hash = ?',
-        [adminHash, '$2b$10$placeholder_hash_for_admin']
+       const [repairAdmin] = await pool.query(
+        'UPDATE users SET password_hash = ? WHERE password_hash IN (?, ?)',
+        [adminHash, '$2b$10$placeholder_hash_for_admin', '$2a$10$YFYPDIihfdZzDb2.KM6MCefUOGXhZehaFQnW3Z7rDiHeQFrKFLppC']
       );
       if (repairAdmin.affectedRows > 0) {
         console.log(`🌱 Repaired ${repairAdmin.affectedRows} legacy admin password hashes in database.`);
       }
 
       const [repairStaff] = await pool.query(
-        'UPDATE users SET password_hash = ? WHERE password_hash = ?',
-        [staffHash, '$2b$10$placeholder_hash_for_staff']
+        'UPDATE users SET password_hash = ? WHERE password_hash IN (?, ?)',
+        [staffHash, '$2b$10$placeholder_hash_for_staff', '$2a$10$gtdB0lyu53meIM3GUy73julcBpjr1TWAheztBxnUMItdPpCIyVVjy']
       );
       if (repairStaff.affectedRows > 0) {
         console.log(`🌱 Repaired ${repairStaff.affectedRows} legacy staff password hashes in database.`);
