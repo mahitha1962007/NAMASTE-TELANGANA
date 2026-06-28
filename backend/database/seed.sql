@@ -21,11 +21,11 @@
 -- Run `node backend/migrations/seed.js` instead for proper hashes.
 
 INSERT INTO users (name, email, password_hash, role, department, phone, is_active) VALUES
-('Admin User', 'admin@example.com', '$2b$10$placeholder_hash_for_admin', 'admin', 'Management', '9876543210', true),
-('Ravi Kumar', 'reporter@example.com', '$2b$10$placeholder_hash_for_staff', 'reporter', 'News Desk', '9876543211', true),
-('Kiran Reddy', 'photographer@example.com', '$2b$10$placeholder_hash_for_staff', 'photographer', 'Media', '9876543212', true),
-('Anjali Sharma', 'editor@example.com', '$2b$10$placeholder_hash_for_staff', 'editor', 'Editorial', '9876543213', true),
-('Suresh Babu', 'interviewer@example.com', '$2b$10$placeholder_hash_for_staff', 'interviewer', 'News Desk', '9876543214', true);
+('Admin User', 'admin@example.com', '$2a$10$RAB6JIrLRnURQXUcaljC4uwkvg.1k/FxKqbvRLq13uFj0ooqpG3SO', 'admin', 'Management', '9876543210', true),
+('Ravi Kumar', 'reporter@example.com', '$2a$10$Ls4g1cz55R4gEM58oUzR5usZ/AUrWiuwn3dqpaMrLVIP2ncP2Kv2C', 'reporter', 'News Desk', '9876543211', true),
+('Kiran Reddy', 'photographer@example.com', '$2a$10$Ls4g1cz55R4gEM58oUzR5usZ/AUrWiuwn3dqpaMrLVIP2ncP2Kv2C', 'photographer', 'Media', '9876543212', true),
+('Anjali Sharma', 'editor@example.com', '$2a$10$Ls4g1cz55R4gEM58oUzR5usZ/AUrWiuwn3dqpaMrLVIP2ncP2Kv2C', 'editor', 'Editorial', '9876543213', true),
+('Suresh Babu', 'interviewer@example.com', '$2a$10$Ls4g1cz55R4gEM58oUzR5usZ/AUrWiuwn3dqpaMrLVIP2ncP2Kv2C', 'interviewer', 'News Desk', '9876543214', true);
 
 -- -------------------------------------------
 -- Seed Assignments

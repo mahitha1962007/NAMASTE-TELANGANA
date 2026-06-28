@@ -83,6 +83,31 @@ async function runMigrations() {
     } catch (seedErr) {
       console.warn('⚠️ Auto-seeding warning:', seedErr.message);
     }
+
+    // Auto-repair placeholder password hashes if they exist in the database
+    try {
+      const bcrypt = require('bcryptjs');
+      const adminHash = await bcrypt.hash('Admin@123', 10);
+      const staffHash = await bcrypt.hash('Staff@123', 10);
+
+      const [repairAdmin] = await pool.query(
+        'UPDATE users SET password_hash = ? WHERE password_hash = ?',
+        [adminHash, '$2b$10$placeholder_hash_for_admin']
+      );
+      if (repairAdmin.affectedRows > 0) {
+        console.log(`🌱 Repaired ${repairAdmin.affectedRows} legacy admin password hashes in database.`);
+      }
+
+      const [repairStaff] = await pool.query(
+        'UPDATE users SET password_hash = ? WHERE password_hash = ?',
+        [staffHash, '$2b$10$placeholder_hash_for_staff']
+      );
+      if (repairStaff.affectedRows > 0) {
+        console.log(`🌱 Repaired ${repairStaff.affectedRows} legacy staff password hashes in database.`);
+      }
+    } catch (repairErr) {
+      console.warn('⚠️ Auto-repair password hashes warning:', repairErr.message);
+    }
   } catch (error) {
     console.error('❌ Migration error:', error.message);
   }
